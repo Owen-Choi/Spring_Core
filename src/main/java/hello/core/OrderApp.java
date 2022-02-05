@@ -3,7 +3,7 @@ package hello.core;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
-import hello.core.member.MemberServieImpl;
+import hello.core.member.MemberServiceImpl;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
@@ -11,8 +11,13 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
 
     public static void main(String[] args) {
-        MemberService memberService = new MemberServieImpl();
-        OrderService orderService = new OrderServiceImpl();
+        //MemberService memberService = new MemberServiceImpl();
+        //OrderService orderService = new OrderServiceImpl();
+
+        //마찬가지로 위의 두 줄은 DIP에 따라 사용하지 않고, AppConfig을 통해서 의존성을 외부 주입 해주겠다.
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
