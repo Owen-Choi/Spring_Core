@@ -7,6 +7,8 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class OrderApp {
 
@@ -14,10 +16,13 @@ public class OrderApp {
         //MemberService memberService = new MemberServiceImpl();
         //OrderService orderService = new OrderServiceImpl();
 
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+        OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
         //마찬가지로 위의 두 줄은 DIP에 따라 사용하지 않고, AppConfig을 통해서 의존성을 외부 주입 해주겠다.
-        AppConfig appConfig = new AppConfig();
-        MemberService memberService = appConfig.memberService();
-        OrderService orderService = appConfig.orderService();
+        //AppConfig appConfig = new AppConfig();
+        //MemberService memberService = appConfig.memberService();
+        //OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
