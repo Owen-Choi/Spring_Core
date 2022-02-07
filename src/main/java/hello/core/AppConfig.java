@@ -22,7 +22,6 @@ public class AppConfig {
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
     }
-    //이렇게 따로 빼는 이유는 가독성을 위해서이다.
     // 멤버 저장소 인터페이스의 구현체를 바꿀려면 이름이 멤버 저장소인 이 메서드만 수정하면 되기때문.
     @Bean
     public MemberRepository memberRepository() {
