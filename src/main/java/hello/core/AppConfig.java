@@ -18,6 +18,13 @@ public class AppConfig {
 
     // MemberServiceImpl을 외부(AppConfig)에서 생성을 해주고, 원래 MemberServiceImpl 내부에서 생성해줬던
     // MemoryMemberRepository도 여기서 생성을 해준다. 그렇기에 내부에서는 코드변경이 일어나지 않아도 되는 것.
+
+    //@Bean memberService -> new MemoryMemberRepository()
+    //@Bean orderService -> new MemoryMemberRepository()
+    // 이렇게 MemoryMemberRepository 인스턴스가 2번 생성되는데 이건 싱글톤이 깨지는 것 아닌가?
+    // 아니다. 스프링 컨테이너가 잡아준다.
+    // ConfigurationSingletonTest 테스트 클래스 참고.
+
     @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
