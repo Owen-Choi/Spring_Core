@@ -5,6 +5,8 @@ import hello.core.member.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class SingletonTest {
 
@@ -47,5 +49,21 @@ public class SingletonTest {
         Assertions.assertThat(instance1).isSameAs(instance2);
         // isSameAs : 자바의 == 연산자와 동일한 역할. 정말 인스턴스가 같은 지를 본다.
         // isEqualTo : 자바의 equals 메서드와 동일한 역할.
+    }
+
+    @Test
+    @DisplayName("스프링 컨테이너와 싱글톤")
+    void springContainer() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService1 = ac.getBean("memberService", MemberService.class);
+        MemberService memberService2 = ac.getBean("memberService", MemberService.class);
+        // 스프링 컨테이너를 이용해서 AppConfig 클래스에 있는 bean을 가져옴.
+        // 여기서 주목할 점은 AppConfig은 기본적으로 자바코드를 작성할때 싱글톤으로 작성하지 않았지만,
+        // 아래 코드로 조회해보면 같은 인스턴스가 생성되어 조회된다는 점이다.
+        // 스프링 컨테이너가 자동으로 싱글톤을 제공하기 때문.
+        System.out.println("memberService1 = " + memberService1);
+        System.out.println("memberService2 = " + memberService2);
+
+        Assertions.assertThat(memberService1).isSameAs(memberService2);
     }
 }
