@@ -6,7 +6,10 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService{
 
     // id로 멤버를 먼저 찾고, 멤버의 등급에 따라 할인을 다르게 적용해야 하므로 이렇게 2개의 인스턴스를 만든다.
@@ -18,6 +21,7 @@ public class OrderServiceImpl implements OrderService{
     // 따라서 다음과 같이 수정한 뒤 AppConfig 클래스를 만든다. 이대로 사용하면 null pointer exception이 발생하기 때문.
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
