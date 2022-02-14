@@ -13,6 +13,10 @@ import org.springframework.context.annotation.FilterType;
         // ComponentScan은 말 그대로 @Component가 붙어있는 클래스를 스캔해서 스프링 빈으로 등록한다.
         // @Configuration도 안에 @Component를 포함하고 있다.
         // 구현체들에게 @Component를 모두 붙여주도록 한다.
+        basePackages = "hello.core",
+        // 만약 basePackages = "hello.core.member" 였다면 member와 그 하위에서만 ComponentScan이 일어난다.
+        // 이 기능이 없으면 모든 자바 파일과 라이브러리를 모두 스캔하기 때문에 시간이 굉장히 오래 걸린다.
+        // 만약 따로 지정하지 않으면 @ComponentScan이 설정 정보 클래스의 패키지가 시작 위치가 된다.
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION,
         classes = Configuration.class)
 )
