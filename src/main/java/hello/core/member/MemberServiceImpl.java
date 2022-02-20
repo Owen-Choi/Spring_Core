@@ -13,7 +13,9 @@ public class MemberServiceImpl implements MemberService{
     // @Autowired를 사용하는 이유 :
     // 기존 AppConfig 클래스에서 memberRepository의 구현체로 memory를 사용하겠다고 명시를 해두었는데
     // AutoAppConfig 클래스에서는 어디에도 구현체를 명시하지 않기 때문에 자동 의존관계 주입이 필요하다.
-    // 즉 여기에서 memberRepository를 명시할 수 없으므로 Autowired를 사용한다?
+
+    // 이렇게 생성자 수준에서 의존관계를 주입해주는 것을 생성자 주입이라고 한다.
+    // component scan이 일어날때 가장 먼저 이 생성자에 있는 의존관계를 주입한다.
     @Autowired
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
