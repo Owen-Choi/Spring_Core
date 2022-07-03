@@ -19,6 +19,8 @@ public class BeanLifeCycleTest {
 
     @Configuration
     static class LifeCycleConfig {
+        // 인터페이스 구현으로 콜백 메서드를 정의하는건 구식이다. 이렇게 bean 애노테이션에 초기화, 소멸 콜백을 지정해줄 수 있다.
+        // 하지만 이 방법 또한 deprecated하다. 최신 스프링이  권장하는 방법은 @PostConstruct, @PreDestroy 애노테이션이다.
         @Bean/*(initMethod = "Init", destroyMethod = "close")*/
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
